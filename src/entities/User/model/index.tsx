@@ -19,7 +19,7 @@ export const UserContextProvider: React.FC<WithChildren> = ({ children }) => {
 
   const logout = () => setUserData(defaultUserDataValue);
   const login: UserDataContext['login'] = (email, password) => {
-    if (password === '123456') {
+    if (password === '12345678') {
       setUserData({
         logged: true,
         email,
