@@ -9,7 +9,7 @@ export const Error404Page = () => (
       <span className={styles.statusCode}>404</span> not found
     </h1>
     <Link to="/" className={styles.linkBack}>
-       На главную
+      ⬅️ На главную
     </Link>
   </div>
 );
