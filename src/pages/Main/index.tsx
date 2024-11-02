@@ -5,6 +5,7 @@ type Props = {
   places: PlaceCardEntity[];
 };
 
+
 export const MainPage: React.FC<Props> = ({ places }) => (
   <div className={classNames('page', 'page--gray', 'page--main')}>
     <header className="header">
