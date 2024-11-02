@@ -3,7 +3,7 @@ import { UserData, UserDataContext } from '../interfaces';
 import { WithChildren } from '../../../shared/interfaces';
 
 const defaultUserDataValue = {
-  logged: false,
+  logged: true,
 };
 
 const defaultContextValue: UserDataContext = {
@@ -19,7 +19,7 @@ export const UserContextProvider: React.FC<WithChildren> = ({ children }) => {
 
   const logout = () => setUserData(defaultUserDataValue);
   const login: UserDataContext['login'] = (email, password) => {
-    if (password === '12345678') {
+    if (password === '123456') {
       setUserData({
         logged: true,
         email,
