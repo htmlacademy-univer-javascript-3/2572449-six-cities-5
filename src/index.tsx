@@ -9,6 +9,7 @@ import ErrorMessage from './components/error-message/error-message';
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
