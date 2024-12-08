@@ -1,33 +1,44 @@
 import MainScreen from '../../pages/main-screen/main-screen';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import LoginScreen from '../../pages/login-screen/login-screen.tsx';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen.tsx';
 import OfferScreen from '../../pages/offer-screen/offer-screen.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { Offer } from '../../types/offer';
-import { OFFERS } from '../../mocks/offers.ts';
+import { useAppSelector } from '../../hooks/index.ts';
+import LoadingScreen from '../../pages/loading-screen/loading-screen.tsx';
+import HistoryRouter from '../history-route/history-route.tsx';
+import browserHistory from '../../browser-history.ts';
+
 
 function App(): JSX.Element {
-  const favourites: Offer[] = OFFERS.filter((o) => o.isFavorite);
+
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  if (isOffersDataLoading || authorizationStatus === AuthorizationStatus.Unknown) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
-        <Route path="*" element={<NotFoundScreen/>} />
-        <Route path={AppRoute.Main} element={<MainScreen/>} />
+        <Route path="*" element={<NotFoundScreen />} />
+        <Route path={AppRoute.Main} element={<MainScreen />} />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} >
-              <FavoritesScreen offers={favourites}/>
+            <PrivateRoute >
+              <FavoritesScreen />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Login} element={<LoginScreen/>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen offer={OFFERS[0]}/>} />
+        <Route path={AppRoute.Login} element={<LoginScreen />} />
+        <Route path={AppRoute.Offer} element={<OfferScreen />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 export default App;
