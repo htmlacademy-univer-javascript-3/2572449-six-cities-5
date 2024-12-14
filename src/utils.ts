@@ -1,6 +1,6 @@
 import { Offer } from './types/offer';
 
-export enum typeOfCardList {
+export enum TypeOfCardList {
     favourites = 'favorites__places',
     nearest = 'near-places__list places__list',
     standart = 'cities__places-list places__list tabs__content',
@@ -8,9 +8,9 @@ export enum typeOfCardList {
 
 export const listToCard = new Map(
   [
-    [typeOfCardList.favourites, 'favorites__card place-card'],
-    [typeOfCardList.nearest, 'near-places__card place-card'],
-    [typeOfCardList.standart, 'cities__card place-card']
+    [TypeOfCardList.favourites, 'favorites__card place-card'],
+    [TypeOfCardList.nearest, 'near-places__card place-card'],
+    [TypeOfCardList.standart, 'cities__card place-card']
   ]
 );
 
@@ -31,8 +31,9 @@ export const getSortedOffers = (
   offers: Offer[],
   sortType: string
 ) => {
+  const offersCopy = offers.slice();
   if (sortFunctions[sortType]) {
-    return sortFunctions[sortType](offers);
+    return sortFunctions[sortType](offersCopy);
   } else if (sortType === filters.POPULAR) {
     return offers;
   }
